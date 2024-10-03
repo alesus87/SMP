@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIESTA PATRONAL 2024 SAN MARTIN DE PORRES</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0; /* Asegúrate de que no haya márgenes en los elementos */
+        }
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('fondo1.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .content {
+            background: #F9F695;
+            padding: 20px 60px;
+            width: 800px;
+            height: 710px;
+            box-sizing: border-box;
+            border-radius: 10px;
+        }
+
+        .d-flex {
+            display: grid;
+            grid-template-rows: 1fr auto;
+            height: 98%;
+        }
+
+        .page {
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+
+        .menu {
+            position: relative;
+            display: flex;
+            justify-content: end;
+        }
+
+        .menu-icon {
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        .dropdown {
+            position: absolute;
+            background-color: white;
+            border: 1px solid #ccc;
+            z-index: 1000;
+            margin-top: 31px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .dropdown div {
+            padding: 10px;
+            cursor: pointer;
+            color: #333;
+            transition: background-color 0.1s;
+        }
+
+        .dropdown div:hover {
+            background-color: #0056b3;
+            color: white
+        }
+
+        .img {
+            text-align: center;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .martin {
+            max-width: 250px;
+        }
+
+        .m-0 {
+            margin: 0;
+        }
+
+        .fw-900 {
+            font-weight: 900;
+        }
+
+        .title {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0px;
+            text-align: center;
+        }
+
+        .btn {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+
+        .jc-end {
+            justify-content: flex-end;
+        }
+
+        button {
+            background-color: #0056b3; /* Azul oscuro */
+            color: white; /* Texto blanco */
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #003d80; /* Un tono más oscuro para el efecto hover */
+        }
+        .content-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .text-font {
+            font-size: 22px;
+            text-align: justify;
+        }
+        .title-day {
+            font-weight: 900;
+            font-size: 20px;
+            text-decoration: underline;
+            margin-bottom: 10px;
+        }
+        .hour-day {
+            display: grid;
+            grid-template-columns: 30% 70%;
+            font-size: 17px;
+            margin-bottom: 4px;
+        }
+        .img-program {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            gap: 5px;
+        }
+        .img-program-div {
+            width: 150px;
+        }
+        .img-program-div img {
+            width: 100%;
+        }
+        .mb-40 {
+            margin-bottom: 20px;
+        }
+        .td-none {
+            text-decoration: none;
+        }
+
+        @media screen and (max-width: 720px) {
+            .content {
+                width: 100%;
+                height: 100%;
+                padding: 20px 30px;
+            }
+
+            .img-program-div {
+                width: 120px;
+            }
+            .d-none {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="container"></div>
+
+    <script>
+        const { createApp, ref } = Vue;
+
+        createApp({
+            setup() {
+                const currentView = ref(1);
+                const menuVisible = ref(false);
+
+                const nextView = () => {
+                    if (currentView.value < 10) {
+                        currentView.value++;
+                    }
+                };
+
+                const prevView = () => {
+                    if (currentView.value > 1) {
+                        currentView.value--;
+                    }
+                };
+
+                const resetView = () => {
+                    currentView.value = 1;
+                };
+
+                const goToView = (view) => {
+                    currentView.value = view;
+                    menuVisible.value = false;
+                };
+
+                const toggleMenu = () => {
+                    console.log('buenas');
+                    menuVisible.value = !menuVisible.value; // Alternar la visibilidad del menú
+                };
+
+                return { currentView, nextView, prevView, resetView, goToView, menuVisible, toggleMenu};
+            },
+            template: `
+                <div>
+                    <div class="content">
+                        <div class="menu">
+                            <div @click="toggleMenu" class="menu-icon">☰</div>
+                            <div v-if="menuVisible" class="dropdown">
+                                <div @click="goToView(1)">INICIO</div>
+                                <div @click="goToView(2)">INVITACIÓN</div>
+                                <div @click="goToView(3)">ORACIÓN</div>
+                                <div @click="goToView(4)">28 y 29 DE OCTUBRE</div>
+                                <div @click="goToView(5)">30 y 31 DE OCTUBRE</div>
+                                <div @click="goToView(6)">04 y 05 NOVIEMBRE</div>
+                                <div @click="goToView(7)">06 NOVIEMBRE</div>
+                                <div @click="goToView(8)">07 NOVIEMBRE</div>
+                                <div @click="goToView(9)">08 NOVIEMBRE - DÍA CENTRAL</div>
+                                <div @click="goToView(10)">AGRADECIMIENTO</div>
+                            </div>
+                        </div>
+                        <div v-if="currentView === 1" class="d-flex">
+                            <div>
+                                <div class="title">
+                                <h2 class="m-0 fw-900">FIESTA PATRONAL EN HONOR A</h2>
+                                <h1 class="m-0 fw-900">SAN MARTIN DE PORRES</h1>
+                                </div>
+                                <div class="img"><img src="san martin.jpeg" class="martin"/></div>
+                                <div class="title">
+                                    <h1 class="m-0 fw-900">LA VICTORIA - HUARMEY</h1>
+                                    <h1 class="m-0 fw-900">2024</h1>
+                                </div>
+                            </div>
+                            <div class="btn jc-end">
+                                <button @click="nextView">Siguiente</button>
+                            </div>
+                        </div>
+                        <div v-else-if="currentView === 2" class="d-flex">
+                            <div class="content-text">
+                                <h1 class="m-0 fw-900">INVITACIÓN</h1>
+                                <p class="text-font">La Comisión de Fiesta de la I.E. N° 88114 "San Martín de Porras"
+                                    invita cordialmente a todos los fieles devotos de nuestro Santo Patrón y comunidad
+                                    en general, a participar de las actividades religiosas, culturales y sociales, que
+                                    se han preparado para rendir homenaje a San Martín de Porras.
+                                    Esperamos contar con vuestra presencia.
+                                </p>
+                            </div>
+                            <div class="btn">
+                                <button @click="prevView">Retroceder</button>
+                                <button @click="nextView">Siguiente</button>
+                            </div>
+                        </div>
+                        <div v-else-if="currentView === 3" class="d-flex">
+                            <div class="content-text">
+                                <h1 class="m-0 fw-900">ORACIÓN</h1>
+                                <p class="text-font">En los momentos de angustia en que nos encontramos, recurro a ti,
+                                    hermano Martín, para que te dignes interceder ante Dios Padre, hijo y Espíritu Santo
+                                    y pongas remedio a este mal incurable. Aplaca la ira de Dios y consigue por su intersección
+                                    la justicia y el rigor, la sanación y el perdón. San Martín bendito, en ti confió, libranos
+                                    de este peligro y síguenos favoreciendo con tu protección. San Martín glorioso, haz que
+                                    nuestra pena se vuelva en gozo. Amén.
+                                </p>
+                            </div>
+                            <div class="btn">
+                                <button @click="prevView">Retroceder</button>
+                                <button @click="nextView">Siguiente</button>
+                            </div>
+                        </div>
+                        <div v-else-if="currentView === 4" class="d-flex">
+                            <div class="content-prgram">
+                                <div class="img-program">
+                                    <div class="img-program-div">
+                                        <img src="escudom.png"/>
+                                    </div>
+                                    <div>
+                                        <h1 class="m-0 fw-900">PROGRAMA</h1>
+                                        <h2 class="m-0 fw-900">FIESTA PATRONAL 2024</h2>
+                                    </div>
+                                    <div class="img-program-div d-none">
+                                        <img src="sanIzquierda.png"/>
+                                    </div>
+                                </div>
+                                <div class="mb-40">
+                                    <div class="title-day">LUNES 28 DE OCTUBRE</div>
+                                    <div class="hour-day">
+                                        <div class="fw-900">12:00pm</div>
+                                        <div>: Novena Nivel primaria (1°A, 1°B y 1°C)</div>
+                                    </div>
+                                    <div class="hour-day">
+                                        <div class="fw-900">5:50 pm</div>
+                                        <div>: Novena Nivel secundaria (1°A, 1°B y 1°C)</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="title-day">MARTES 29 DE OCTUBRE</div>
+                                    <div class="hour-day">
+                                        <div class="fw-900">12:00pm</div>
+                                        <div>: Novena Nivel primaria (2°A, 2°B y 2°C)</div>
+                                    </div>
+                                    <div class="hour-day">
+                                        <div class="fw-900">5:50 pm</div>
+                                        <div>: Novena Nivel secundaria (2°A, 2°B y 2°C)</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn">
+                                <button @click="prevView">Retroceder</button>
+                                <button @click="nextView">Siguiente</button>
+                            </div>
+                        </div>
+                        <div v-else-if="currentView === 5" class="d-flex">
+                            <div class="content-prgram">
+                                <div class="img-program">
+                                    <div class="img-program-div">
+                                        <img src="escudom.png"/>
+                                    </div>
+                                    <div>
+                                        <h1 class="m-0 fw-900">PROGRAMA</h1>
+                                        <h2 class="m-0 fw-900">FIESTA PATRONAL 2024</h2>
+                                    </div>
+                                    <div class="img-program-div d-none">
+                                        <img src="sanIzquierda.png"/>
+                                    </div>
+                                </div>
+                                <div class="mb-40">
+                                    <div class="title-day">MIÉRCOLES 30 DE OCTUBRE</div>
+                                    <div class="hour-day">
+                                        <div class="fw-900">12:00pm</div>
+                                        <div>: Novena Nivel primaria (3°A, 3°B y 3°C)</div>
+                                    </div>
+                                    <div class="hour-day">
+                                        <div class="fw-900">5:50 pm</div>
+                                        <div>: Novena Nivel secundaria (3°A, 3°B y 3°C)</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="title-day">JUEVES 31 DE OCTUBRE</div>
+                                    <div class="hour-day">
+                                        <div class="fw-900">12:00pm</div>
+                                        <div>: Novena Nivel primaria (4°A, 4°B y 4°C)</div>
+                                    </div>
+                                    <div class="hour-day">
+                                        <div class="fw-900">5:50 pm</div>
+                                        <div>: Novena Nivel secundaria (4°A, 4°B y 4°C)</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn">
+                                <button @click="prevView">Retroceder</button>
+                                <button @click="nextView">Siguiente</button>
+                            </div>
+                        </div>
+                        <div v-else-if="currentView === 6" class="d-flex">
+                            <div class="content-prgram">
+                                <div class="img-program">
+                                    <div class="img-program-div">
+                                        <img src="escudom.png"/>
+                                    </div>
+                                    <div>
+                                        <h1 class="m-0 fw-900">PROGRAMA</h1>
+                                        <h2 class="m-0 fw-900">FIESTA PATRONAL 2024</h2>
+                                    </div>
+                                    <div class="img-program-div d-none">
+                                        <img src="sanIzquierda.png"/>
+                                    </div>
+                                </div>
+                                <div class="mb-40">
+                                    <div class="title-day">LUNES 04 DE NOVIEMBRE</div>
+                                    <div class="hour-day">
+                                        <div class="fw-900">12:00pm</div>
+                                        <div>: Novena Nivel primaria (5°A, 5°B y 5°C)</div>
+                                    </div>
+                                    <div class="hour-day">
+                                        <div class="fw-900">5:50 pm</div>
+                                        <div>: Novena Nivel secundaria (5°A y 5°B)</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="title-day">MARTES 05 DE NOVIEMBRE</div>
+                                    <div class="hour-day">
+                                        <div class="fw-900">12:00pm</div>
+                                        <div>: Novena Nivel primaria (6°A, 6°B y 6°C)</div>
+                                    </div>
+                                    <div class="hour-day">
+                                        <div class="fw-900">5:50 pm</div>
+                                        <div>: Novena Nivel secundaria (Profesores del Nivel Secundaria)</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn">
+                                <button @click="prevView">Retroceder</button>
+                                <button @click="nextView">Siguiente</button>
+                            </div>
+                        </div>
+                        <div v-else-if="currentView === 7" class="d-flex">
+                            <div class="content-prgram">
+                                <div class="img-program">
+                                    <div class="img-program-div">
+                                        <img src="escudom.png"/>
+                                    </div>
+                                    <div>
+                                        <h1 class="m-0 fw-900">PROGRAMA</h1>
+                                        <h2 class="m-0 fw-900">FIESTA PATRONAL 2024</h2>
+                                    </div>
+                                    <div class="img-program-div d-none">
+                                        <img src="sanIzquierda.png"/>
+                                    </div>
+                                </div>
+                                <div class="mb-40">
+                                    <div class="title-day">MIERCOLES 06 DE NOVIEMBRE</div>
+                                    <div class="hour-day">
+                                        <div class="fw-900">12:00pm</div>
+                                        <div>: Novena Nivel primaria (Profesores Nivel primaria)</div>
+                                    </div>
+                                    <div class="hour-day">
+                                        <div class="fw-900">5:50 pm</div>
+                                        <div>: Novena Personal Administrativo</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn">
+                                <button @click="prevView">Retroceder</button>
+                                <button @click="nextView">Siguiente</button>
+                            </div>
+                        </div>
+                        <div v-else-if="currentView === 8" class="d-flex">
+                            <div class="content-prgram">
+                                <div class="img-program">
+                                    <div class="img-program-div">
+                                        <img src="escudom.png"/>
+                                    </div>
+                                    <div>
+                                        <h1 class="m-0 fw-900">PROGRAMA</h1>
+                                        <h2 class="m-0 fw-900">FIESTA PATRONAL 2024</h2>
+                                    </div>
+                                    <div class="img-program-div d-none">
+                                        <img src="sanIzquierda.png"/>
+                                    </div>
+                                </div>
+                                <div class="mb-40">
+                                    <div class="title-day">JUEVES 07 DE NOVIEMBRE</div>
+                                    <div class="title-day td-none">I CONCURSO DE DANZAS SANMARTIANIANAS</div>
+                                    <div class="hour-day">
+                                        <div class="fw-900">7:30am</div>
+                                        <div>: Concentración</div>
+                                    </div>
+                                    <div class="hour-day">
+                                        <div class="fw-900">8:00am</div>
+                                        <div>: Inicio de pasacalle ambos niveles</div>
+                                    </div>
+                                    <div class="hour-day">
+                                        <div class="fw-900">9:00am</div>
+                                        <div>: Inicio del concurso de danzas ambos niveles</div>
+                                    </div>
+                                    <div class="hour-day">
+                                        <div class="fw-900">8:00pm</div>
+                                        <div>: Paraliturgia en Honor a nuestro santo patrón San Martin de
+                                            Porres. (Bendición del techo de la gruta y manto de Nuestro
+                                            Santo patrón)
+                                        </div>
+                                    </div>
+                                    <div class="hour-day">
+                                        <div class="fw-900">9:00pm</div>
+                                        <div>: Víspera de fiesta patronal en honor a nuestro santo
+                                            Patrón San Martin de Porres
+                                        </div>
+                                    </div>
+                                    <div class="hour-day">
+                                        <div class="fw-900">10:00pm</div>
+                                        <div>: Presentación de los mariachis</div>
+                                    </div>
+                                    <div class="hour-day">
+                                        <div class="fw-900">10:30pm</div>
+                                        <div>: Quema de la vaca loca y bombardas</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn">
+                                <button @click="prevView">Retroceder</button>
+                                <button @click="nextView">Siguiente</button>
+                            </div>
+                        </div>
+                        <div v-else-if="currentView === 9" class="d-flex">
+                            <div class="content-prgram">
+                                <div class="img-program">
+                                    <div class="img-program-div">
+                                        <img src="escudom.png"/>
+                                    </div>
+                                    <div>
+                                        <h1 class="m-0 fw-900">PROGRAMA</h1>
+                                        <h2 class="m-0 fw-900">FIESTA PATRONAL 2024</h2>
+                                    </div>
+                                    <div class="img-program-div d-none">
+                                        <img src="sanIzquierda.png"/>
+                                    </div>
+                                </div>
+                                <div class="mb-40">
+                                    <div class="title-day">VIERNES 08 DE NOVIEMBRE – DÍA CENTRAL</div>
+                                    <div class="hour-day">
+                                        <div class="fw-900">09:00am</div>
+                                        <div>: Misa en homenaje a nuestro santo patrón San Martín de Porras.</div>
+                                    </div>
+                                    <div class="hour-day">
+                                        <div class="fw-900">10:00am</div>
+                                        <div>: Procesión por las principales calles/avenidas de la comunidad
+                                            Victoriana.
+                                        </div>
+                                    </div>
+                                    <div class="hour-day">
+                                        <div class="fw-900">11.00am</div>
+                                        <div>: Almuerzo/compartir estudiantes</div>
+                                    </div>
+                                    <div class="hour-day">
+                                        <div class="fw-900">1:00pm</div>
+                                        <div>: Almuerzo/compartir de todo el personal Jerárquico, Docentes,
+                                            Administrativos e Invitados.
+                                        </div>
+                                    </div>
+                                    <div class="hour-day">
+                                        <div class="fw-900">4:00pm</div>
+                                        <div>: Elección de nuevo mayordomo (personal administrativo)</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn">
+                                <button @click="prevView">Retroceder</button>
+                                <button @click="nextView">Siguiente</button>
+                            </div>
+                        </div>
+                        <div v-else class="d-flex">
+                            <div class="content-text">
+                                <h1 class="m-0 fw-900">AGRADECIMIENTO</h1>
+                                <p class="text-font">
+                                    A todas las personas por colaborar con la fiesta patronal
+                                </p>
+                            </div>
+                            <div class="btn">
+                                <button @click="prevView">Retroceder</button>
+                                <button @click="resetView">Volver a Inicio</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `
+        }).mount('#app');
+    </script>
+</body>
+</html>
